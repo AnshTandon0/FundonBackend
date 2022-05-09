@@ -219,10 +219,52 @@ const all_loans = (req, res) => {
     })
 }
 
+const applied_loans = (req, res) => {
+
+    const { borrowerEmail , borrowerUserName } = req.body
+
+    Loan.find({borrowerEmail , borrowerUserName}, (err, response) => {
+        if (response[0]) {
+            return res.status(200).json({
+                message: "All Loans",
+                response
+            })
+        }
+
+        if (err || !response[0]) {
+            res.status(400).json({
+                message: "No Loan Exists"
+            })
+        }
+    })
+}
+
+const accepted_loans = (req, res) => {
+
+    const { lenderEmail , lenderUserName } = req.body
+
+    Loan.find({lenderEmail , lenderUserName}, (err, response) => {
+        if (response[0]) {
+            return res.status(200).json({
+                message: "All Loans",
+                response
+            })
+        }
+
+        if (err || !response[0]) {
+            res.status(400).json({
+                message: "No Loan Exists"
+            })
+        }
+    })
+}
+
 module.exports = {
     "create": create,
     "modify": modify,
     "get": get,
     "accept": accept,
-    "all_loans": all_loans
+    "all_loans": all_loans,
+    "applied_loans":applied_loans,
+    "accepted_loans":accepted_loans
 }

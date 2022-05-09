@@ -65,6 +65,10 @@ const profileSchema = new mongoose.Schema({
     bankUrl: {
         type: String,
         required: true
+    },
+    isVerified: {
+        type: Boolean,
+        required:true
     }
 }, {timestamps: true})
 

@@ -45,8 +45,8 @@ exports.signup = (req, res) => {
                     const mailOptions = {
                         from: 'a.antsapps@gmail.com',
                         to: email,
-                        subject: 'Verification Email for BankPro ',
-                        text: `The OTP to verify you registered email id in BankPro is ${otp}`
+                        subject: 'Verification Email for Fundon ',
+                        text: `The OTP to verify you registered email id in Fundon is ${otp}`
                     };
 
                     transporter.sendMail(mailOptions, (error, info) => {

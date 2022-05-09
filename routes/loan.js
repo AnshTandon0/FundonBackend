@@ -9,6 +9,6 @@ router.post('/create', userAuth , create)
 router.post('/modify', userAuth , modify)
 router.get('/allLoans', userAuth , all_loans)
 router.get('/get', userAuth , get)
-router.get('/accept', userAuth , accept)
+router.post('/accept', userAuth , accept)
 
 module.exports = router

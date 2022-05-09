@@ -22,7 +22,6 @@ const loanSchema = new mongoose.Schema({
         type: String,
         required: true,
         maxlength: 32,
-        trim: true,
         default: " "
     },
     lenderEmail:{

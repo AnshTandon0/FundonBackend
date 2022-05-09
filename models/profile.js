@@ -49,6 +49,22 @@ const profileSchema = new mongoose.Schema({
     ifscCode: {
         type: String,
         required: true
+    },
+    imgUrl: {
+        type: String,
+        required: true
+    },
+    aadhaarUrl: {
+        type: String,
+        required: true
+    },
+    panUrl: {
+        type: String,
+        required: true
+    },
+    bankUrl: {
+        type: String,
+        required: true
     }
 }, {timestamps: true})
 

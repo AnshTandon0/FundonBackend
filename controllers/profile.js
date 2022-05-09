@@ -49,7 +49,8 @@ const create = (req, res) => {
 
 const modify = (req, res) => {
 
-    const { email, userName, name, mobile, address, occupation, aadhaarNo, panNo, bankAccountNo, ifscCode } = req.body
+    const { email, userName, name, mobile, address, occupation, aadhaarNo, panNo,
+         bankAccountNo, ifscCode , imgUrl , aadhaarUrl , panUrl , bankUrl } = req.body
 
     Profile.updateOne({ userName }, {
         $set: {
@@ -61,7 +62,11 @@ const modify = (req, res) => {
             "aadhaarNo": aadhaarNo,
             "panNo": panNo,
             "bankAccountNo": bankAccountNo,
-            "ifscCode": ifscCode
+            "ifscCode": ifscCode ,
+            "imgUrl" : imgUrl ,
+            "aadhaarUrl" :aadhaarUrl ,
+            "panUrl" : panUrl ,
+            "bankUrl" :bankUrl
         }
     }, (err, response) => {
         if (response) {

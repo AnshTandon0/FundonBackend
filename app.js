@@ -9,7 +9,7 @@ const cors = require("cors")
 require("dotenv").config();
 
 //DB
-mongoose.connect(process.env.DATABASE,{
+mongoose.connect(process.env.DBLOCAL,{
 }).then(()=>{
     console.log("DB Connected")
 }).catch((err)=>{
@@ -23,13 +23,13 @@ app.use(cors())
 
 //Importing routes
 const userRoutes = require("./routes/user")
-// const adminRoutes = require("./routes/admin")
+const profileRoutes = require("./routes/profile")
 // const examRoutes = require("./routes/exam")
 // const questionRoutes = require( "./routes/question" )
 
 //Using routes
 app.use('/api/auth', userRoutes)
-// app.use('/api/admin', adminRoutes)
+app.use('/api/profile', profileRoutes)
 // app.use('/api/exam' , examRoutes )
 // app.use('/api/question' , questionRoutes)
 

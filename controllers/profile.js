@@ -84,7 +84,29 @@ const modify = (req, res) => {
     })
 }
 
+const get = (req , res) =>
+{
+    const {userName} = req.body
+
+    Profile.findOne((userName),(err , profile ) =>
+    {
+        if (profile) {
+            res.status(200).json({
+                message: "Profile Found" ,
+                profile
+            })
+        }
+        else
+        {
+            res.status(400).json({
+                message: "Profile Does Not Exists"
+            })
+        }
+    })
+}
+
 module.exports = {
     "create" : create ,
-    "modify" : modify
+    "modify" : modify ,
+    "get"  : get
 }

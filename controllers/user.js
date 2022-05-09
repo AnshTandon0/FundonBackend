@@ -12,7 +12,7 @@ exports.signup = (req, res) => {
         })
     }
 
-    const { name, userName, email, password } = req.body
+    const { userName, email, password } = req.body
 
     User.findOne({ email }, (err, user) => {
         if (user) {
@@ -33,7 +33,7 @@ exports.signup = (req, res) => {
                 if (err || !user) {
                     const otp = Math.floor(((Math.random() * 1000000) + 100000) % 1000000);
 
-                    const token = jwt.sign({ name: name, email: email, password: password, userName: userName, otpCoded: otp }, process.env.SECRET)
+                    const token = jwt.sign({ email: email, password: password, userName: userName, otpCoded: otp }, process.env.SECRET)
 
                     const transporter = nodemailer.createTransport({
                         service: 'gmail',
@@ -81,10 +81,10 @@ exports.verify_email = (req, res) => {
                 })
             }
 
-            const { name, userName, email, password, otpCoded } = decodedToken;
+            const { userName, email, password, otpCoded } = decodedToken;
 
             if (otp.toString() === otpCoded.toString()) {
-                const user = new User({ name, userName, email, password })
+                const user = new User({ userName, email, password })
 
                 user.save((e, user) => {
                     if (e) {
@@ -129,12 +129,11 @@ exports.signin = (req, res) => {
         res.cookie('token', token, { expire: new Date() + 1 })
 
         // Send response
-        const { _id, name, email , userName } = user
+        const { _id, email , userName } = user
         return res.json({
             token,
             user: {
                 _id,
-                name,
                 email , 
                 userName
             }

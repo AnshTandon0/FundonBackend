@@ -88,7 +88,7 @@ const get = (req , res) =>
 {
     const {userName} = req.body
 
-    Profile.findOne((userName),(err , profile ) =>
+    Profile.findOne({userName} , (err , profile ) =>
     {
         if (profile) {
             res.status(200).json({

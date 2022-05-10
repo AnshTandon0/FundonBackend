@@ -43,6 +43,14 @@ const loanSchema = new mongoose.Schema({
     status:{
         type: String ,
         required: true
+    },
+    secured:{
+        type: Boolean ,
+        required: true
+    },
+    date:{
+        type: String ,
+        required: true
     }
 
 } , { timeStamps : true })

@@ -1,11 +1,45 @@
 const Loan = require("../models/loan")
+const Cibil = require("../models/cibil")
 const { validationResult } = require("express-validator")
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const loan = require("../models/loan");
 require('express-jwt');
 
 const create = (req, res) => {
-    const { id, borrowerEmail } = req.body
+    const { id, borrowerEmail ,borrowerUserName } = req.body
+
+    const userName = borrowerUserName 
+    const userEmail = borrowerEmail
+
+    Cibil.findOne({userName , userEmail} , ( err , cibil ) => {
+        if ( cibil )
+        {
+            Cibil.updateOne( { userName , userEmail } ,  {
+                $set: {
+                    "loanCount": cibil.loanCount + 1 ,
+                    "disapprovedLoanCount": cibil.disapprovedLoanCount + 1
+                } } , ( err , response ) => {
+                    if ( err )
+                    {
+                        console.log("Error found")
+                    }
+                })
+        }
+        
+        if ( err || !cibil )
+        {
+            const cibil = new Cibil( { userName : userName , userEmail : userEmail , loanCount : 1 , currentLoanCount : 0 ,
+                finishedOverdue : 0 , securedLoanCount : 0 ,  unsecuredLoanCount : 0 , 
+                loanCountYear : 0 , disapprovedLoanCount : 1 } )
+            cibil.save( (e , cibil) => {
+                if (e )
+                console.log ( e )
+                else
+                console.log( cibil.userName )
+            } )
+        }
+    })
 
     Loan.findOne({ id }, (err, loan) => {
         if (loan) {
@@ -117,14 +151,51 @@ const modify = (req, res) => {
 
 const accept = (req, res) => {
 
-    const { id, lenderUserName, lenderEmail, status, borrowerEmail, borrowerUserName } = req.body
+    const { id, lenderUserName, lenderEmail, status, borrowerEmail, borrowerUserName , date , secured } = req.body
+
+    var userName = borrowerUserName 
+    var userEmail = borrowerEmail
+
+    Cibil.findOne({userName , userEmail} , ( err , cibil ) => {
+        if ( cibil )
+        {
+            var securedLoanCount = cibil.securedLoanCount 
+            var unsecuredLoanCount = cibil.unsecuredLoanCount 
+            if ( secured )
+            {
+                securedLoanCount++
+            }
+            else{
+                unsecuredLoanCount++
+            }
+
+            Cibil.updateOne( { userName , userEmail } ,  {
+                $set: {
+                    "currentLoanCount": cibil.currentLoanCount + 1 ,
+                    "securedLoanCount": securedLoanCount ,
+                    "unsecuredLoanCount": unsecuredLoanCount ,
+                    "loanCountYear": cibil.loanCountYear + 1 ,
+                    "disapprovedLoanCount" : cibil.disapprovedLoanCount - 1 
+                } } , ( err , response ) => {
+                    if ( err )
+                    {
+                        console.log("Error found")
+                    }else
+                    {
+                        console.log("Cibil updated")
+                    }
+                })
+        }
+    })
 
     if (status === "accepted") {
         Loan.updateOne({ id }, {
             $set: {
                 "lenderUserName": lenderUserName,
                 "lenderEmail": lenderEmail,
-                "status": status
+                "status": status,
+                "date" : date ,
+                "secured" : secured
             }
         }, (err, response) => {
             if (response) {

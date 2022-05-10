@@ -12,7 +12,7 @@ router.post('/paidAmounts', userAuth , paid_amount)
 router.post('/finishedLoans', userAuth , finished_loan)
 router.get('/get', userAuth , get)
 router.get('/allLoans', userAuth , all_loans)
-router.get('/appliedLoans', userAuth , applied_loans)
-router.get('/acceptedLoans', userAuth , accepted_loans)
+router.post('/appliedLoans', userAuth , applied_loans)
+router.post('/acceptedLoans', userAuth , accepted_loans)
 
 module.exports = router

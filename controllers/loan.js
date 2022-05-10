@@ -392,7 +392,8 @@ const finished_loan = (req, res) => {
 
             Cibil.updateOne({ userName, userEmail }, {
                 $set: {
-                    "finishedOverdue": cibil.finishedOverdue + a
+                    "finishedOverdue": cibil.finishedOverdue + a,
+                    "currentLoanCount":cibil.currentLoanCount-1
                 }
             }, (err, response) => {
                 if (err) {

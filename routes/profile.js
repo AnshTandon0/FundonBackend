@@ -7,6 +7,6 @@ const router = express.Router()
 
 router.post('/create', userAuth , create)
 router.post('/modify', userAuth , modify)
-router.get('/get', userAuth , get)
+router.post('/get', userAuth , get)
 
 module.exports = router

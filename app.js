@@ -25,13 +25,13 @@ app.use(cors())
 const userRoutes = require("./routes/user")
 const profileRoutes = require("./routes/profile")
 const loanRoutes = require("./routes/loan")
-// const questionRoutes = require( "./routes/question" )
+const cibilRoutes = require( "./routes/cibil" )
 
 //Using routes
 app.use('/api/auth', userRoutes)
 app.use('/api/profile', profileRoutes)
 app.use('/api/loan', loanRoutes)
-// app.use('/api/question' , questionRoutes)
+app.use('/api/cibil' , cibilRoutes)
 
 
 const port = process.env.PORT || 8000

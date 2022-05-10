@@ -3,7 +3,6 @@ const Cibil = require("../models/cibil")
 const { validationResult } = require("express-validator")
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
-const loan = require("../models/loan");
 require('express-jwt');
 
 const create = (req, res) => {

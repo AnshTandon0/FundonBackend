@@ -8,11 +8,11 @@ const router = express.Router()
 router.post('/create', userAuth , create)
 router.post('/modify', userAuth , modify)
 router.post('/accept', userAuth , accept)
+router.post('/paidAmounts', userAuth , paid_amount)
+router.post('/finishedLoans', userAuth , finished_loan)
 router.get('/get', userAuth , get)
 router.get('/allLoans', userAuth , all_loans)
 router.get('/appliedLoans', userAuth , applied_loans)
 router.get('/acceptedLoans', userAuth , accepted_loans)
-router.get('/paidAmount', userAuth , paid_amount)
-router.get('/finishedLoans', userAuth , finished_loan)
 
 module.exports = router

@@ -9,7 +9,7 @@ const cors = require("cors")
 require("dotenv").config();
 
 //DB
-mongoose.connect(process.env.DATABASE, {
+mongoose.connect(process.env.DBLOCAL, {
 }).then(() => {
     console.log("DB Connected")
 }).catch((err) => {

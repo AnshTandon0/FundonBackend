@@ -340,36 +340,43 @@ const paid_amount = (req, res) => {
                 Cibil.updateOne({ userName, userEmail }, {
                     $set: {
                         "presentLoanAmount": cibil.presentLoanAmount - amountPaid,
-                        "amountPaid": cibil.amountPaid + amountPaid ,
-                        "currentOverdue" : cibil.currentOverdue + 1 
+                        "amountPaid": cibil.amountPaid + amountPaid,
+                        "currentOverdue": cibil.currentOverdue + 1
                     }
                 }, (err, response) => {
                     if (err) {
                         console.log("Error found ." + err)
                     } else {
-                        console.log("Cibil updated")
+                        return res.status(200).json({
+                            message: "Cibil UPdated Successfully",
+                            response
+                        })
                     }
                 })
             }
-
-            Cibil.updateOne({ userName, userEmail }, {
-                $set: {
-                    "presentLoanAmount": cibil.presentLoanAmount - amountPaid,
-                    "amountPaid": cibil.amountPaid + amountPaid
-                }
-            }, (err, response) => {
-                if (err) {
-                    console.log("Error found ." + err)
-                } else {
-                    console.log("Cibil updated")
-                }
-            })
+            else{
+                Cibil.updateOne({ userName, userEmail }, {
+                    $set: {
+                        "presentLoanAmount": cibil.presentLoanAmount - amountPaid,
+                        "amountPaid": cibil.amountPaid + amountPaid
+                    }
+                }, (err, response) => {
+                    if (err) {
+                        console.log("Error found ." + err)
+                    } else {
+                        return res.status(200).json({
+                            message: "Cibil UPdated Successfully",
+                            response
+                        })
+                    }
+                })
+            }
         }
     })
 
 }
 
-const finished_loan = ( req, res ) => {
+const finished_loan = (req, res) => {
     const { id, lenderUserName, lenderEmail, status, borrowerEmail, borrowerUserName, overdue } = req.body
 
     var userName = borrowerUserName
@@ -377,8 +384,8 @@ const finished_loan = ( req, res ) => {
 
     Cibil.findOne({ userName, userEmail }, (err, cibil) => {
         if (cibil) {
-            
-            var a = 0 
+
+            var a = 0
 
             if (overdue) {
                 a++

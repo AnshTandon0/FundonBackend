@@ -31,12 +31,13 @@ const create = (req, res) => {
         {
             const cibil = new Cibil( { userName : userName , userEmail : userEmail , loanCount : 1 , currentLoanCount : 0 ,
                 finishedOverdue : 0 , securedLoanCount : 0 ,  unsecuredLoanCount : 0 , 
-                loanCountYear : 0 , disapprovedLoanCount : 1 } )
+                loanCountYear : 0 , disapprovedLoanCount : 1 , currentOverdue : 0 , presentLoanAmount : 0 ,
+                amountPaid : 0 , totalLoanCredited : 0 } )
             cibil.save( (e , cibil) => {
                 if (e )
                 console.log ( e )
                 else
-                console.log( cibil.userName )
+                console.log( "Cibil Added" )
             } )
         }
     })
@@ -151,7 +152,7 @@ const modify = (req, res) => {
 
 const accept = (req, res) => {
 
-    const { id, lenderUserName, lenderEmail, status, borrowerEmail, borrowerUserName , date , secured } = req.body
+    const { id, lenderUserName, lenderEmail, status, borrowerEmail, borrowerUserName , date , secured , loanAmount } = req.body
 
     var userName = borrowerUserName 
     var userEmail = borrowerEmail
@@ -175,11 +176,13 @@ const accept = (req, res) => {
                     "securedLoanCount": securedLoanCount ,
                     "unsecuredLoanCount": unsecuredLoanCount ,
                     "loanCountYear": cibil.loanCountYear + 1 ,
-                    "disapprovedLoanCount" : cibil.disapprovedLoanCount - 1 
+                    "disapprovedLoanCount" : cibil.disapprovedLoanCount - 1 ,
+                    "presentLoanAmount" : cibil.presentLoanAmount + loanAmount ,
+                    "totalLoanCredited" : cibil.totalLoanCredited + loanAmount
                 } } , ( err , response ) => {
                     if ( err )
                     {
-                        console.log("Error found")
+                        console.log("Error found ." + err)
                     }else
                     {
                         console.log("Cibil updated")

@@ -23,6 +23,10 @@ const cibilSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    currentOverdue:{
+        type: Number,
+        required: true
+    },
     securedLoanCount: {
         type: Number,
         required: true
@@ -36,6 +40,18 @@ const cibilSchema = new mongoose.Schema({
         required: true
     },
     disapprovedLoanCount:{
+        type: Number,
+        required: true
+    },
+    totalLoanCredited:{
+        type: Number,
+        required: true
+    },
+    presentLoanAmount:{
+        type: Number,
+        required: true
+    },
+    amountPaid:{
         type: Number,
         required: true
     }

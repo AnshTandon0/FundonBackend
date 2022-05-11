@@ -4,7 +4,7 @@ const User = require("../models/user")
 const auth = async ( req , res , next ) => {
     try {
         const token = req.header("Authorization").replace('Bearer ' , '')
-        const decodedToken = jwt.verify( token , process.env.SECRET )
+        const decodedToken = jwt.verify(token, process.env.SECRET)
         User.findOne(  { '_id': decodedToken._id } , ( err , user ) =>
         {
             if(err || !user) {
@@ -20,6 +20,7 @@ const auth = async ( req , res , next ) => {
             error : "Please Authenticate"
         })
     }
+
 }
 
 module.exports = auth

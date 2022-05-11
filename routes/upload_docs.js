@@ -11,7 +11,7 @@ router.post('upload', (req, res) => {
 
     form.parse(req, function(err, fields, files){
 
-       
+
         const oldPath = files.profilePic.path;
         const newPath = path.join(__dirname, 'uploads')
             + '/' + files.profilePic.name;

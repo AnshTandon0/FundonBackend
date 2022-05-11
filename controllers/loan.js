@@ -353,7 +353,7 @@ const paid_amount = (req, res) => {
                     }
                 })
             }
-            else{
+            else {
                 Cibil.updateOne({ userName, userEmail }, {
                     $set: {
                         "presentLoanAmount": cibil.presentLoanAmount - amountPaid,
@@ -393,7 +393,7 @@ const finished_loan = (req, res) => {
             Cibil.updateOne({ userName, userEmail }, {
                 $set: {
                     "finishedOverdue": cibil.finishedOverdue + a,
-                    "currentLoanCount":cibil.currentLoanCount-1
+                    "currentLoanCount": cibil.currentLoanCount - 1
                 }
             }, (err, response) => {
                 if (err) {
@@ -465,6 +465,40 @@ const finished_loan = (req, res) => {
 
 }
 
+const send_remainder = (req, res) => {
+
+    const { email, message, userName } = req.body
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'a.antsapps@gmail.com',
+            pass: 'qybdrvmddxnivpqu'
+        }
+    });
+    const mailOptions = {
+        from: 'a.antsapps@gmail.com',
+        to: email,
+        subject: "Remainder from " + userName,
+        text: message
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return res.status(400).json({
+                error: error
+            })
+        }
+        else
+        {
+            return res.status(200).json({
+                message : "Mail Sent Successfully"
+            })
+        }
+    })
+
+}
+
 module.exports = {
     "create": create,
     "modify": modify,
@@ -474,5 +508,6 @@ module.exports = {
     "applied_loans": applied_loans,
     "accepted_loans": accepted_loans,
     "paid_amount": paid_amount,
-    "finished_loan": finished_loan
+    "finished_loan": finished_loan ,
+    "send_remainder":send_remainder
 }

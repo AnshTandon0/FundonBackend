@@ -6,6 +6,6 @@ const { route } = require("./user");
 const router = express.Router()
 
 
-router.get('/get', userAuth , get)
+router.post('/get', userAuth , get)
 
 module.exports = router

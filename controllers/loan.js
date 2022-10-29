@@ -63,7 +63,7 @@ const create = (req, res) => {
                     service: 'gmail',
                     auth: {
                         user: 'a.antsapps@gmail.com',
-                        pass: 'qybdrvmddxnivpqu'
+                        pass: 'rmyqwmhoebnglmds'
                     }
                 });
                 const mailOptions = {
@@ -110,7 +110,7 @@ const modify = (req, res) => {
                     service: 'gmail',
                     auth: {
                         user: 'a.antsapps@gmail.com',
-                        pass: 'qybdrvmddxnivpqu'
+                        pass: 'rmyqwmhoebnglmds'
                     }
                 });
                 const mailOptions = {
@@ -203,7 +203,7 @@ const accept = (req, res) => {
                     service: 'gmail',
                     auth: {
                         user: 'a.antsapps@gmail.com',
-                        pass: 'qybdrvmddxnivpqu'
+                        pass: 'rmyqwmhoebnglmds'
                     }
                 });
                 const mailOptions = {
@@ -417,7 +417,7 @@ const finished_loan = (req, res) => {
                 service: 'gmail',
                 auth: {
                     user: 'a.antsapps@gmail.com',
-                    pass: 'qybdrvmddxnivpqu'
+                    pass: 'rmyqwmhoebnglmds'
                 }
             });
             const mailOptions = {
@@ -473,7 +473,7 @@ const send_remainder = (req, res) => {
         service: 'gmail',
         auth: {
             user: 'a.antsapps@gmail.com',
-            pass: 'qybdrvmddxnivpqu'
+            pass: 'rmyqwmhoebnglmds'
         }
     });
     const mailOptions = {
